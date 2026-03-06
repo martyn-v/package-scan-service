@@ -1,0 +1,53 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+A Node.js (TypeScript) microservice that receives and processes logistics events from external devices/systems. Example: a warehouse camera+scale combo sending `package-scan` events with ID, dimensions, and weight.
+
+- **Runtime:** Node 24, Yarn 4 (managed via mise)
+- **HTTP layer:** Express
+- **Persistence:** In-memory (no database) — use a simple cache/store layer within the app
+- **Deployment:** Docker container
+
+## Build & Run Commands
+
+```bash
+yarn install          # Install dependencies
+yarn build            # Compile TypeScript
+yarn start            # Run the compiled service
+yarn dev              # Run in development mode (ts-node or nodemon)
+yarn test             # Run all tests with coverage (HTML + JUnit output)
+yarn test -- --grep "pattern"  # Run a single test by name
+yarn lint             # Run linter
+docker build -t package-scan-handler .  # Build Docker image
+docker run -p 3000:3000 package-scan-handler  # Run container
+```
+
+## Architecture
+
+```
+src/
+  app.ts              # Express app setup (routes, middleware)
+  server.ts           # Entry point (starts listening)
+  routes/             # Route handlers (thin — delegate to services)
+  services/           # Business logic
+  models/             # TypeScript types/interfaces for events
+  store/              # In-memory persistence layer (injectable/mockable)
+```
+
+- **Routes** are thin controllers that validate input and delegate to **services**.
+- **Services** contain business logic and depend on the **store** abstraction.
+- **Store** provides an in-memory persistence interface, injected into services for testability.
+
+## Development Rules
+
+- **TDD (red-green-refactor):** Write a failing test first, make it pass, then refactor. Every feature/fix starts with a test.
+- **All dependencies must be mockable:** Use a DI-friendly pattern. Use an external mocking library (e.g., sinon, jest mocks, or ts-mockito).
+- **Test coverage:** Generate HTML coverage report and JUnit XML output on every test run.
+- **Clean code:** Small functions, clear naming, single responsibility. Favor composition over inheritance.
+
+## Decision Log
+
+All interactions and decisions are logged in `DECISIONS.md`. Every prompt/response pair is recorded. Architectural decisions use ADR format in that file.
