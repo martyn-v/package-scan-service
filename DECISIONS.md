@@ -54,6 +54,14 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — Service & Repository Layers for Package Scan
+
+**Summary of prompt:** Implement persistence simulation with a service layer and repository layer (simulating a database). After a successful save, return `{"status": "accepted"}`.
+
+**Summary of response:** Created `PackageScanRepository` interface and `InMemoryPackageScanRepository` (Map-based). Created `PackageScanService` that delegates to the repository. Refactored route to use injected service via `createPackageScanRouter()`. Wired DI in `app.ts`. Unit tests with vitest-mock-extended for service (mocked repo) and repository. Updated e2e test for new response. All lint/tests/build pass.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)

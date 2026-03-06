@@ -1,5 +1,7 @@
 import express, { Application } from 'express';
-import packageScanRouter from './routes/package-scan';
+import { createPackageScanRouter } from './routes/package-scan';
+import { PackageScanService } from './services/package-scan-service';
+import { InMemoryPackageScanRepository } from './store/package-scan-repository';
 
 /**
  * Creates and configures the Express application with routes and middleware.
@@ -14,7 +16,9 @@ export function createApp(): Application {
     res.json({ status: 'ok' });
   });
 
-  app.use('/events/package-scan', packageScanRouter);
+  const repository = new InMemoryPackageScanRepository();
+  const service = new PackageScanService(repository);
+  app.use('/events/package-scan', createPackageScanRouter(service));
 
   return app;
 }

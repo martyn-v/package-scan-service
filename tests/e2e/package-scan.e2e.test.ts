@@ -17,12 +17,12 @@ describe('POST /events/package-scan', () => {
     },
   };
 
-  it('should echo the payload back with 200', async () => {
+  it('should accept the event and return accepted status', async () => {
     const response = await request(app)
       .post('/events/package-scan')
       .send(validPayload);
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual(validPayload);
+    expect(response.body).toEqual({ status: 'accepted' });
   });
 });

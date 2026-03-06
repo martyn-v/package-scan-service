@@ -57,6 +57,14 @@ src/
 - **Clean code:** Small functions, clear naming, single responsibility. Favor composition over inheritance.
 - **JSDoc:** All functions, interfaces, and classes must have appropriate JSDoc comments.
 
+## Pre-Push Checklist
+
+Before every `git push`, run all three in order. All must pass. If any fail, fix issues in a separate commit before pushing.
+
+1. `yarn lint`
+2. `yarn test`
+3. `yarn build`
+
 ## Decision Log
 
 All interactions and decisions are logged in `DECISIONS.md`. Every prompt/response pair is recorded. Architectural decisions use ADR format in that file.
