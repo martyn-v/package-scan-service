@@ -18,7 +18,7 @@ export interface ValidationOutcome {
  */
 export async function validate(schema: Joi.ObjectSchema, payload: unknown): Promise<ValidationOutcome> {
   try {
-    await schema.validateAsync(payload, { abortEarly: false });
+    await schema.validateAsync(payload, { abortEarly: false, stripUnknown: true });
 
     const warnings = checkDimensionWarnings(payload as PackageScanEvent);
 

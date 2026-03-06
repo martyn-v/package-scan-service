@@ -119,6 +119,20 @@ describe('validate', () => {
     expect(result.warnings.some((w) => w.includes('height'))).toBe(true);
   });
 
+  it('should strip unknown fields and still be valid', async () => {
+    const result = await validate(packageScanSchema, {
+      ...validPayload,
+      unknownField: 'should be stripped',
+      package: {
+        ...validPayload.package,
+        extraNested: true,
+      },
+    });
+
+    expect(result.valid).toBe(true);
+    expect(result.errors).toEqual([]);
+  });
+
   it('should reject a missing trackingId', async () => {
     const { trackingId: _tid, ...packageWithoutTrackingId } = validPayload.package;
     const result = await validate(packageScanSchema, {

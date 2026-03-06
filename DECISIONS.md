@@ -94,6 +94,14 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None — user clarified mid-implementation that 0 should be rejected and < 5 should warn.
 
+### 2026-03-06 — Bugfix: Strip Unknown Fields Instead of Rejecting
+
+**Summary of prompt:** Extra values in the payload cause rejection. Should strip them instead. Can Joi do this?
+
+**Summary of response:** Yes — added `stripUnknown: true` to `validateAsync` options. Unknown fields are silently removed. Added unit test for payloads with unknown top-level and nested fields. TDD red-green. 29 tests pass.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)
