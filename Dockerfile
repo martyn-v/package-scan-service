@@ -1,4 +1,4 @@
-FROM node:24-slim AS build
+FROM node:25-slim AS build
 
 WORKDIR /app
 COPY package.json yarn.lock .yarnrc.yml ./
@@ -8,7 +8,7 @@ COPY tsconfig.json ./
 COPY src ./src
 RUN yarn build
 
-FROM node:24-slim
+FROM node:25-slim
 
 WORKDIR /app
 COPY package.json yarn.lock .yarnrc.yml ./
