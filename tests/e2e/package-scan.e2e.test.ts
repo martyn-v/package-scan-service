@@ -41,4 +41,14 @@ describe('POST /events/package-scan', () => {
     expect(response.status).toBe(409);
     expect(response.body).toEqual({ status: 'rejected', reasons: ['duplicate_event'] });
   });
+
+  it('should reject an invalid payload with validation errors', async () => {
+    const response = await request(app)
+      .post('/events/package-scan')
+      .send({ eventId: 'evt_invalid' });
+
+    expect(response.status).toBe(409);
+    expect(response.body.status).toBe('rejected');
+    expect(response.body.reasons.length).toBeGreaterThan(0);
+  });
 });

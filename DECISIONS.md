@@ -70,9 +70,27 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — Joi Validation Layer
+
+**Summary of prompt:** Find and propose a validation library supporting errors and warnings. Errors reject, warnings return `accepted_with_warnings`. Use Joi (chosen for native warning support). Implement and commit without pushing — user will provide specific validations next.
+
+**Summary of response:** Installed Joi. Created `ProcessResult` type with three statuses (accepted/accepted_with_warnings/rejected). Built `validate()` (async, using `validateAsync` with `warnings: true`) and `toProcessResult()` converter. Created Joi schema for package scan payloads. Wired validation into service (runs before idempotency check). Route maps status to HTTP codes. Unit tests for validator, service, and e2e for invalid payloads. All 16 tests pass.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)
+
+### ADR-002: Joi for Validation with Warnings
+
+**Status:** Accepted
+
+**Context:** Need a validation library that distinguishes errors from warnings.
+
+**Decision:** Joi — native `warning` support via `validateAsync()` with `{ warnings: true }`. Zod, Yup, and class-validator lack native warning concepts.
+
+**Consequences:** Validation is async (`validateAsync` required for warnings in Joi 18). Schema defined in `src/validation/package-scan-schema.ts`, validator logic in `src/validation/validator.ts`.
 
 ### ADR-001: ESLint Configuration
 

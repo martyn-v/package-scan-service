@@ -1,11 +1,8 @@
 import { PackageScanEvent } from '../models/package-scan';
+import { ProcessResult } from '../models/process-result';
 import { PackageScanRepository } from '../store/package-scan-repository';
-
-/** Result of processing a package scan event. */
-export interface ProcessResult {
-  status: 'accepted' | 'rejected';
-  reasons?: string[];
-}
+import { validate, toProcessResult } from '../validation/validator';
+import { packageScanSchema } from '../validation/package-scan-schema';
 
 /** Service for processing package scan events. */
 export class PackageScanService {
@@ -16,16 +13,28 @@ export class PackageScanService {
   constructor(private readonly repository: PackageScanRepository) {}
 
   /**
-   * Processes a package scan event with idempotency check.
+   * Processes a package scan event with validation and idempotency check.
    * @param event - The package scan event to process.
-   * @returns The processing result indicating accepted or rejected.
+   * @returns The processing result indicating accepted, accepted_with_warnings, or rejected.
    */
-  process(event: PackageScanEvent): ProcessResult {
+  async process(event: PackageScanEvent): Promise<ProcessResult> {
+    const outcome = await validate(packageScanSchema, event);
+    const validationResult = toProcessResult(outcome);
+
+    if (validationResult?.status === 'rejected') {
+      return validationResult;
+    }
+
     if (this.repository.findById(event.eventId)) {
       return { status: 'rejected', reasons: ['duplicate_event'] };
     }
 
     this.repository.save(event);
+
+    if (validationResult?.status === 'accepted_with_warnings') {
+      return validationResult;
+    }
+
     return { status: 'accepted' };
   }
 }

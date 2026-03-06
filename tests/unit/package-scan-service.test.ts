@@ -16,25 +16,38 @@ describe('PackageScanService', () => {
     },
   };
 
-  it('should save and return accepted for a new event', () => {
+  it('should save and return accepted for a new event', async () => {
     const repository = mock<PackageScanRepository>();
     repository.findById.mockReturnValue(undefined);
     const service = new PackageScanService(repository);
 
-    const result = service.process(event);
+    const result = await service.process(event);
 
     expect(repository.save).toHaveBeenCalledWith(event);
     expect(result).toEqual({ status: 'accepted' });
   });
 
-  it('should reject a duplicate event without saving', () => {
+  it('should reject a duplicate event without saving', async () => {
     const repository = mock<PackageScanRepository>();
     repository.findById.mockReturnValue(event);
     const service = new PackageScanService(repository);
 
-    const result = service.process(event);
+    const result = await service.process(event);
 
     expect(repository.save).not.toHaveBeenCalled();
     expect(result).toEqual({ status: 'rejected', reasons: ['duplicate_event'] });
+  });
+
+  it('should reject an invalid event without saving', async () => {
+    const repository = mock<PackageScanRepository>();
+    const service = new PackageScanService(repository);
+
+    const invalidEvent = { eventId: 'evt_bad' } as PackageScanEvent;
+    const result = await service.process(invalidEvent);
+
+    expect(repository.save).not.toHaveBeenCalled();
+    expect(result.status).toBe('rejected');
+    expect(result.reasons).toBeDefined();
+    expect(result.reasons!.length).toBeGreaterThan(0);
   });
 });

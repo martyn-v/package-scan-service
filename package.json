@@ -12,7 +12,8 @@
     "lint:fix": "eslint src/ tests/ --fix"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "joi": "^18.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
