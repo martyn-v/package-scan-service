@@ -23,7 +23,24 @@ describe('POST /events/package-scan', () => {
       .send(validPayload);
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual({ status: 'accepted' });
+    expect(response.body.status).toBe('accepted');
+    expect(response.body.data).toBeDefined();
+    expect(response.body.data.eventId).toBe(validPayload.eventId);
+  });
+
+  it('should return normalized payload without extra fields', async () => {
+    const response = await request(app)
+      .post('/events/package-scan')
+      .send({
+        ...validPayload,
+        eventId: 'evt_strip_test',
+        extraField: 'should not appear',
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.data).toBeDefined();
+    expect(response.body.data.extraField).toBeUndefined();
+    expect(response.body.data.eventId).toBe('evt_strip_test');
   });
 
   it('should reject a duplicate event', async () => {
@@ -57,6 +74,8 @@ describe('POST /events/package-scan', () => {
     expect(response.status).toBe(200);
     expect(response.body.status).toBe('accepted_with_warnings');
     expect(response.body.warnings.length).toBeGreaterThan(0);
+    expect(response.body.data).toBeDefined();
+    expect(response.body.data.eventId).toBe('evt_absurd_dims');
   });
 
   it('should reject an invalid payload with validation errors', async () => {

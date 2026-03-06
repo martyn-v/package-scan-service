@@ -102,6 +102,14 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — Return Normalized Payload in Response
+
+**Summary of prompt:** Return the normalized (stripped) payload in the `accepted` and `accepted_with_warnings` responses.
+
+**Summary of response:** Added `data` field to `ProcessResult`. Validator now returns normalized payload from `validateAsync`. Service includes `data` in accepted/accepted_with_warnings results. Added e2e test confirming stripped payload returned without extra fields. 30 tests pass.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)

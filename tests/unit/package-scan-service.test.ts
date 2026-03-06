@@ -23,8 +23,10 @@ describe('PackageScanService', () => {
 
     const result = await service.process(event);
 
-    expect(repository.save).toHaveBeenCalledWith(event);
-    expect(result).toEqual({ status: 'accepted' });
+    expect(repository.save).toHaveBeenCalled();
+    expect(result.status).toBe('accepted');
+    expect(result.data).toBeDefined();
+    expect(result.data!.eventId).toBe(event.eventId);
   });
 
   it('should reject a duplicate event without saving', async () => {

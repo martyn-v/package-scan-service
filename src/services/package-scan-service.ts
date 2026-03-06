@@ -25,16 +25,18 @@ export class PackageScanService {
       return validationResult;
     }
 
-    if (this.repository.findById(event.eventId)) {
+    const normalized = outcome.normalized!;
+
+    if (this.repository.findById(normalized.eventId)) {
       return { status: 'rejected', reasons: ['duplicate_event'] };
     }
 
-    this.repository.save(event);
+    this.repository.save(normalized);
 
     if (validationResult?.status === 'accepted_with_warnings') {
-      return validationResult;
+      return { ...validationResult, data: normalized };
     }
 
-    return { status: 'accepted' };
+    return { status: 'accepted', data: normalized };
   }
 }
