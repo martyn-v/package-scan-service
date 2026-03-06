@@ -78,6 +78,14 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — Validation Rules: Dimensions, Future Timestamp, TrackingId
+
+**Summary of prompt:** Three validations: (1) reject negative or missing dimensions, (2) reject future timestamps, (3) reject missing trackingId.
+
+**Summary of response:** Dimensions and trackingId were already enforced by schema (`positive().required()`, `string().required()`). Added `Joi.date().iso().max('now')` for future timestamp rejection. Added 4 unit tests: negative dimensions, missing dimensions, future timestamp, missing trackingId. TDD red-green: only future timestamp failed initially, fixed with schema change. Updated ESLint config for `ignoreRestSiblings` in test files. All 20 tests pass.
+
+**Questions asked:** Clarified #1 ("a payload with dimensions should be rejected") — user confirmed negative dimensions or missing field.
+
 ---
 
 ## ADR (Architectural Decision Records)

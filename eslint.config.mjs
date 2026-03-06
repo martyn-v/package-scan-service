@@ -45,6 +45,7 @@ export default tseslint.config(
       // Relax JSDoc and return types for tests
       'jsdoc/require-jsdoc': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', destructuredArrayIgnorePattern: '^_', ignoreRestSiblings: true }],
       'no-console': 'off',
     },
   },

@@ -4,7 +4,7 @@ import Joi from 'joi';
 export const packageScanSchema = Joi.object({
   eventId: Joi.string().required(),
   source: Joi.string().required(),
-  timestamp: Joi.string().isoDate().required(),
+  timestamp: Joi.date().iso().max('now').required(),
   package: Joi.object({
     trackingId: Joi.string().required(),
     dimensions: Joi.object({

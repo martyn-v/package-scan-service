@@ -41,6 +41,53 @@ describe('validate', () => {
     expect(result.valid).toBe(false);
     expect(result.errors.some((e) => e.includes('length'))).toBe(true);
   });
+
+  it('should reject negative dimensions', async () => {
+    const result = await validate(packageScanSchema, {
+      ...validPayload,
+      package: {
+        ...validPayload.package,
+        dimensions: { length: -10, width: -5, height: -2, unit: 'cm' },
+      },
+    });
+
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((e) => e.includes('length'))).toBe(true);
+    expect(result.errors.some((e) => e.includes('width'))).toBe(true);
+    expect(result.errors.some((e) => e.includes('height'))).toBe(true);
+  });
+
+  it('should reject missing dimensions', async () => {
+    const { dimensions: _dims, ...packageWithoutDimensions } = validPayload.package;
+    const result = await validate(packageScanSchema, {
+      ...validPayload,
+      package: packageWithoutDimensions,
+    });
+
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((e) => e.includes('dimensions'))).toBe(true);
+  });
+
+  it('should reject a timestamp in the future', async () => {
+    const result = await validate(packageScanSchema, {
+      ...validPayload,
+      timestamp: '2099-01-01T00:00:00Z',
+    });
+
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((e) => e.includes('timestamp'))).toBe(true);
+  });
+
+  it('should reject a missing trackingId', async () => {
+    const { trackingId: _tid, ...packageWithoutTrackingId } = validPayload.package;
+    const result = await validate(packageScanSchema, {
+      ...validPayload,
+      package: { ...packageWithoutTrackingId },
+    });
+
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((e) => e.includes('trackingId'))).toBe(true);
+  });
 });
 
 describe('toProcessResult', () => {
