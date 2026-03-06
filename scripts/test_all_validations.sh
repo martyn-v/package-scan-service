@@ -32,6 +32,9 @@ echo ""
 bash "${SCRIPT_DIR}/test_warn_absurd_height.sh"
 echo ""
 
+bash "${SCRIPT_DIR}/test_strip_unknown.sh"
+echo ""
+
 echo "=========================================="
 echo " All validation tests completed"
 echo "=========================================="
