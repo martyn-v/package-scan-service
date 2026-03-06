@@ -110,6 +110,14 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — Code Review Against Functional Specification
+
+**Summary of prompt:** Perform a full code review of the repository against the functional specification (sections 3–4), validating consistency with project rules, architecture, style, test coverage, and requirements compliance. Write findings to `REVIEW.md`.
+
+**Summary of response:** Read all source files, test files, config files, scripts, and documentation. Wrote `REVIEW.md` with 21 findings across 8 categories. Two high-severity findings identified: (1) response field `data` should be `normalizedEvent` per spec section 4, and (2) warnings use a separate `warnings` field instead of the spec's single `reasons` array. Other findings include missing Dockerfile (optional per spec), shared e2e test state, CLAUDE.md architecture diagram missing `validation/`, and ADR-002 inaccuracy about Joi warning implementation. 30 tests pass with good coverage.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)

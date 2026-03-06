@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="30" failures="0" errors="0" time="0.043883083">
-    <testsuite name="tests/e2e/health.e2e.test.ts" timestamp="2026-03-06T20:50:00.919Z" hostname="macst-martynv" tests="1" failures="0" errors="0" skipped="0" time="0.00982325">
-        <testcase classname="tests/e2e/health.e2e.test.ts" name="GET /health &gt; should return 200 with status ok" time="0.009140791">
+<testsuites name="vitest tests" tests="30" failures="0" errors="0" time="0.042511248">
+    <testsuite name="tests/e2e/health.e2e.test.ts" timestamp="2026-03-06T21:00:54.665Z" hostname="macst-martynv" tests="1" failures="0" errors="0" skipped="0" time="0.009375708">
+        <testcase classname="tests/e2e/health.e2e.test.ts" name="GET /health &gt; should return 200 with status ok" time="0.008772334">
         </testcase>
     </testsuite>
-    <testsuite name="tests/e2e/package-scan.e2e.test.ts" timestamp="2026-03-06T20:50:00.920Z" hostname="macst-martynv" tests="5" failures="0" errors="0" skipped="0" time="0.019989125">
-        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should accept the event and return accepted status" time="0.0134855">
+    <testsuite name="tests/e2e/package-scan.e2e.test.ts" timestamp="2026-03-06T21:00:54.665Z" hostname="macst-martynv" tests="5" failures="0" errors="0" skipped="0" time="0.019249">
+        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should accept the event and return accepted status" time="0.012668458">
         </testcase>
-        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should return normalized payload without extra fields" time="0.001734291">
+        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should return normalized payload without extra fields" time="0.001561167">
         </testcase>
-        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should reject a duplicate event" time="0.001887209">
+        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should reject a duplicate event" time="0.00209125">
         </testcase>
-        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should accept with warnings for absurd dimensions" time="0.000901125">
+        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should accept with warnings for absurd dimensions" time="0.000967625">
         </testcase>
-        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should reject an invalid payload with validation errors" time="0.001269792">
-        </testcase>
-    </testsuite>
-    <testsuite name="tests/unit/package-scan-repository.test.ts" timestamp="2026-03-06T20:50:00.920Z" hostname="macst-martynv" tests="3" failures="0" errors="0" skipped="0" time="0.001839334">
-        <testcase classname="tests/unit/package-scan-repository.test.ts" name="InMemoryPackageScanRepository &gt; should save and retrieve an event by ID" time="0.00091225">
-        </testcase>
-        <testcase classname="tests/unit/package-scan-repository.test.ts" name="InMemoryPackageScanRepository &gt; should return undefined for unknown event ID" time="0.000090833">
-        </testcase>
-        <testcase classname="tests/unit/package-scan-repository.test.ts" name="InMemoryPackageScanRepository &gt; should return all saved events" time="0.000126416">
+        <testcase classname="tests/e2e/package-scan.e2e.test.ts" name="POST /events/package-scan &gt; should reject an invalid payload with validation errors" time="0.001285416">
         </testcase>
     </testsuite>
-    <testsuite name="tests/unit/package-scan-service.test.ts" timestamp="2026-03-06T20:50:00.920Z" hostname="macst-martynv" tests="3" failures="0" errors="0" skipped="0" time="0.00447275">
-        <testcase classname="tests/unit/package-scan-service.test.ts" name="PackageScanService &gt; should save and return accepted for a new event" time="0.002406625">
+    <testsuite name="tests/unit/package-scan-repository.test.ts" timestamp="2026-03-06T21:00:54.666Z" hostname="macst-martynv" tests="3" failures="0" errors="0" skipped="0" time="0.002085708">
+        <testcase classname="tests/unit/package-scan-repository.test.ts" name="InMemoryPackageScanRepository &gt; should save and retrieve an event by ID" time="0.000925042">
         </testcase>
-        <testcase classname="tests/unit/package-scan-service.test.ts" name="PackageScanService &gt; should reject a duplicate event without saving" time="0.000687583">
+        <testcase classname="tests/unit/package-scan-repository.test.ts" name="InMemoryPackageScanRepository &gt; should return undefined for unknown event ID" time="0.000180625">
         </testcase>
-        <testcase classname="tests/unit/package-scan-service.test.ts" name="PackageScanService &gt; should reject an invalid event without saving" time="0.000685334">
-        </testcase>
-    </testsuite>
-    <testsuite name="tests/unit/package-scan-warnings.test.ts" timestamp="2026-03-06T20:50:00.921Z" hostname="macst-martynv" tests="4" failures="0" errors="0" skipped="0" time="0.002338458">
-        <testcase classname="tests/unit/package-scan-warnings.test.ts" name="checkDimensionWarnings &gt; should return no warnings for normal dimensions" time="0.000845209">
-        </testcase>
-        <testcase classname="tests/unit/package-scan-warnings.test.ts" name="checkDimensionWarnings &gt; should warn for all dimensions below 5" time="0.000546125">
-        </testcase>
-        <testcase classname="tests/unit/package-scan-warnings.test.ts" name="checkDimensionWarnings &gt; should warn for height exceeding 500" time="0.000153333">
-        </testcase>
-        <testcase classname="tests/unit/package-scan-warnings.test.ts" name="checkDimensionWarnings &gt; should not warn for dimensions at exactly 5" time="0.000074625">
+        <testcase classname="tests/unit/package-scan-repository.test.ts" name="InMemoryPackageScanRepository &gt; should return all saved events" time="0.000186209">
         </testcase>
     </testsuite>
-    <testsuite name="tests/unit/validator.test.ts" timestamp="2026-03-06T20:50:00.921Z" hostname="macst-martynv" tests="14" failures="0" errors="0" skipped="0" time="0.005420166">
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should return valid with no errors for a correct payload" time="0.002325708">
+    <testsuite name="tests/unit/package-scan-service.test.ts" timestamp="2026-03-06T21:00:54.666Z" hostname="macst-martynv" tests="3" failures="0" errors="0" skipped="0" time="0.004496708">
+        <testcase classname="tests/unit/package-scan-service.test.ts" name="PackageScanService &gt; should save and return accepted for a new event" time="0.002420417">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should return errors for missing required fields" time="0.000685916">
+        <testcase classname="tests/unit/package-scan-service.test.ts" name="PackageScanService &gt; should reject a duplicate event without saving" time="0.000703792">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should return errors for invalid field types" time="0.000361291">
+        <testcase classname="tests/unit/package-scan-service.test.ts" name="PackageScanService &gt; should reject an invalid event without saving" time="0.000652709">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject negative dimensions" time="0.000164291">
+    </testsuite>
+    <testsuite name="tests/unit/package-scan-warnings.test.ts" timestamp="2026-03-06T21:00:54.666Z" hostname="macst-martynv" tests="4" failures="0" errors="0" skipped="0" time="0.002586333">
+        <testcase classname="tests/unit/package-scan-warnings.test.ts" name="checkDimensionWarnings &gt; should return no warnings for normal dimensions" time="0.000866541">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject missing dimensions" time="0.000099292">
+        <testcase classname="tests/unit/package-scan-warnings.test.ts" name="checkDimensionWarnings &gt; should warn for all dimensions below 5" time="0.000677125">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject a timestamp in the future" time="0.000104875">
+        <testcase classname="tests/unit/package-scan-warnings.test.ts" name="checkDimensionWarnings &gt; should warn for height exceeding 500" time="0.000173">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject zero dimensions" time="0.000101167">
+        <testcase classname="tests/unit/package-scan-warnings.test.ts" name="checkDimensionWarnings &gt; should not warn for dimensions at exactly 5" time="0.000078958">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should warn for dimensions below 5" time="0.000133167">
+    </testsuite>
+    <testsuite name="tests/unit/validator.test.ts" timestamp="2026-03-06T21:00:54.667Z" hostname="macst-martynv" tests="14" failures="0" errors="0" skipped="0" time="0.004717791">
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should return valid with no errors for a correct payload" time="0.001888166">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should warn for height greater than 500" time="0.000101292">
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should return errors for missing required fields" time="0.000590208">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should strip unknown fields and still be valid" time="0.000239542">
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should return errors for invalid field types" time="0.000315584">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject a missing trackingId" time="0.000113583">
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject negative dimensions" time="0.00015475">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="toProcessResult &gt; should return null for a clean validation" time="0.000064625">
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject missing dimensions" time="0.000090792">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="toProcessResult &gt; should return rejected with reasons for errors" time="0.000080208">
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject a timestamp in the future" time="0.000090791">
         </testcase>
-        <testcase classname="tests/unit/validator.test.ts" name="toProcessResult &gt; should return accepted_with_warnings for warnings only" time="0.000048916">
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject zero dimensions" time="0.000094583">
+        </testcase>
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should warn for dimensions below 5" time="0.000140917">
+        </testcase>
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should warn for height greater than 500" time="0.000109917">
+        </testcase>
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should strip unknown fields and still be valid" time="0.000206458">
+        </testcase>
+        <testcase classname="tests/unit/validator.test.ts" name="validate &gt; should reject a missing trackingId" time="0.0001025">
+        </testcase>
+        <testcase classname="tests/unit/validator.test.ts" name="toProcessResult &gt; should return null for a clean validation" time="0.000059833">
+        </testcase>
+        <testcase classname="tests/unit/validator.test.ts" name="toProcessResult &gt; should return rejected with reasons for errors" time="0.000073625">
+        </testcase>
+        <testcase classname="tests/unit/validator.test.ts" name="toProcessResult &gt; should return accepted_with_warnings for warnings only" time="0.000046208">
         </testcase>
     </testsuite>
 </testsuites>
