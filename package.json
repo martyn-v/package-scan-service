@@ -7,20 +7,26 @@
     "dev": "nodemon --watch src --ext ts --exec ts-node src/server.ts",
     "test": "vitest run --coverage",
     "test:unit": "vitest run --coverage tests/unit",
-    "test:e2e": "vitest run --coverage tests/e2e"
+    "test:e2e": "vitest run --coverage tests/e2e",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint src/ tests/ --fix"
   },
   "dependencies": {
     "express": "^5.2.1"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/express": "^5.0.6",
     "@types/node": "^25.3.5",
     "@types/supertest": "^7.2.0",
     "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^10.0.2",
+    "eslint-plugin-jsdoc": "^62.7.1",
     "nodemon": "^3.1.14",
     "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1",
     "vitest": "^4.0.18"
   }
 }

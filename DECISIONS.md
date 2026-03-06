@@ -46,8 +46,30 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — CLAUDE.md Update & ESLint Setup
+
+**Summary of prompt:** Update CLAUDE.md with session learnings (Yarn PnP gotcha, coverage commit policy, test commands). Add JSDoc requirement for all functions, interfaces, and classes. Implement a linter with sensible rules that validates code compliance.
+
+**Summary of response:** Updated CLAUDE.md with gotchas and JSDoc rule. Set up ESLint with typescript-eslint and eslint-plugin-jsdoc. Rules include: explicit return types, no-any, JSDoc on all functions/interfaces/classes/types, no console.log (warn/error allowed), eqeqeq, prefer-const. Tests are relaxed (no JSDoc, no explicit returns). Fixed all existing code to pass lint: added JSDoc to all models and `createApp`, changed `console.log` to `console.warn` in server.ts.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)
 
-_(No ADRs recorded yet. Decisions will be added here as they arise.)_
+### ADR-001: ESLint Configuration
+
+**Status:** Accepted
+
+**Context:** Need a linter to enforce code quality, TypeScript strictness, and JSDoc compliance.
+
+**Decision:** ESLint with `typescript-eslint` and `eslint-plugin-jsdoc`. Key rules:
+- `@typescript-eslint/explicit-function-return-type: error`
+- `@typescript-eslint/no-explicit-any: error`
+- `jsdoc/require-jsdoc` on functions, methods, classes, interfaces, type aliases
+- `jsdoc/require-description` and `jsdoc/require-returns-description`
+- `no-console` (only `warn` and `error` allowed)
+- Tests exempt from JSDoc and explicit return types
+
+**Consequences:** All source code must have JSDoc. Tests remain lightweight.

@@ -19,8 +19,11 @@ yarn build            # Compile TypeScript
 yarn start            # Run the compiled service
 yarn dev              # Run in development mode (ts-node or nodemon)
 yarn test             # Run all tests with coverage (HTML + JUnit output)
-yarn test -- --grep "pattern"  # Run a single test by name
-yarn lint             # Run linter
+yarn run test:unit    # Run unit tests only (tests/unit/)
+yarn run test:e2e     # Run e2e tests only (tests/e2e/)
+yarn lint             # Run ESLint
+yarn lint --fix       # Auto-fix lint issues
+make test_success     # curl test against running server
 docker build -t package-scan-handler .  # Build Docker image
 docker run -p 3000:3000 package-scan-handler  # Run container
 ```
@@ -41,12 +44,18 @@ src/
 - **Services** contain business logic and depend on the **store** abstraction.
 - **Store** provides an in-memory persistence interface, injected into services for testability.
 
+## Gotchas
+
+- **Yarn PnP:** Use `yarn start` / `yarn build` — not `node dist/server.js` directly (PnP won't resolve modules)
+- **Coverage & JUnit output are committed** to the repo for demo purposes — do not gitignore them
+
 ## Development Rules
 
 - **TDD (red-green-refactor):** Write a failing test first, make it pass, then refactor. Every feature/fix starts with a test.
 - **All dependencies must be mockable:** Use a DI-friendly pattern. Use an external mocking library (e.g., sinon, jest mocks, or ts-mockito).
 - **Test coverage:** Generate HTML coverage report and JUnit XML output on every test run.
 - **Clean code:** Small functions, clear naming, single responsibility. Favor composition over inheritance.
+- **JSDoc:** All functions, interfaces, and classes must have appropriate JSDoc comments.
 
 ## Decision Log
 
