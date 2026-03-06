@@ -14,6 +14,30 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None — requirements were clear from the initial prompt.
 
+### 2026-03-06 — Git Repository Setup
+
+**Summary of prompt:** Initialize a git repository, create a README explaining the project, add `https://github.com/martyn-v/package-scan-service.git` as origin, commit and push to main.
+
+**Summary of response:** Created `README.md` with project overview, tech stack, getting started, Docker, and persistence sections. Initialized git repo, set branch to `main`, added remote origin, committed all files, and pushed to remote.
+
+**Questions asked:** None.
+
+### 2026-03-06 — Express Hello World Scaffold
+
+**Summary of prompt:** Scaffold a basic Express hello world app using Yarn.
+
+**Summary of response:** Initialized Yarn project, installed Express + TypeScript + ts-node + nodemon. Created `tsconfig.json`, `src/app.ts` (Express app factory with `/health` endpoint), and `src/server.ts` (entry point). Added build/start/dev scripts to `package.json`. Updated `.gitignore` with dist exclusion. Verified build and health endpoint work.
+
+**Questions asked:** None.
+
+### 2026-03-06 — Test Scaffolding
+
+**Summary of prompt:** Scaffold testing with `yarn run test:unit` and `yarn run test:e2e` commands. Use modern testing (Vitest preferred). Create an e2e test for the `/health` endpoint.
+
+**Summary of response:** Installed Vitest, @vitest/coverage-v8, and supertest. Created `vitest.config.ts` with HTML coverage and JUnit XML output. Set up `tests/unit/` and `tests/e2e/` directories. Created e2e test for `GET /health` verifying 200 status and `{ status: 'ok' }` body. Added `test`, `test:unit`, and `test:e2e` scripts to package.json.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)

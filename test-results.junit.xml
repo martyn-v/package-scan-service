@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="1" failures="0" errors="0" time="0.009507083">
+    <testsuite name="tests/e2e/health.e2e.test.ts" timestamp="2026-03-06T20:02:51.123Z" hostname="macst-martynv" tests="1" failures="0" errors="0" skipped="0" time="0.009507083">
+        <testcase classname="tests/e2e/health.e2e.test.ts" name="GET /health &gt; should return 200 with status ok" time="0.008897334">
+        </testcase>
+    </testsuite>
+</testsuites>
