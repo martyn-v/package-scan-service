@@ -1,6 +1,12 @@
 import { PackageScanEvent } from '../models/package-scan';
 import { PackageScanRepository } from '../store/package-scan-repository';
 
+/** Result of processing a package scan event. */
+export interface ProcessResult {
+  status: 'accepted' | 'rejected';
+  reasons?: string[];
+}
+
 /** Service for processing package scan events. */
 export class PackageScanService {
   /**
@@ -10,10 +16,16 @@ export class PackageScanService {
   constructor(private readonly repository: PackageScanRepository) {}
 
   /**
-   * Processes and persists a package scan event.
+   * Processes a package scan event with idempotency check.
    * @param event - The package scan event to process.
+   * @returns The processing result indicating accepted or rejected.
    */
-  process(event: PackageScanEvent): void {
+  process(event: PackageScanEvent): ProcessResult {
+    if (this.repository.findById(event.eventId)) {
+      return { status: 'rejected', reasons: ['duplicate_event'] };
+    }
+
     this.repository.save(event);
+    return { status: 'accepted' };
   }
 }

@@ -10,8 +10,9 @@ export function createPackageScanRouter(service: PackageScanService): Router {
   const router = Router();
 
   router.post('/', (req: Request, res: Response) => {
-    service.process(req.body);
-    res.json({ status: 'accepted' });
+    const result = service.process(req.body);
+    const statusCode = result.status === 'accepted' ? 200 : 409;
+    res.status(statusCode).json(result);
   });
 
   return router;

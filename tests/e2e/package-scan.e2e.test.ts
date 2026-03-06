@@ -25,4 +25,20 @@ describe('POST /events/package-scan', () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ status: 'accepted' });
   });
+
+  it('should reject a duplicate event', async () => {
+    const duplicatePayload: PackageScanEvent = {
+      ...validPayload,
+      eventId: 'evt_duplicate_test',
+    };
+
+    await request(app).post('/events/package-scan').send(duplicatePayload);
+
+    const response = await request(app)
+      .post('/events/package-scan')
+      .send(duplicatePayload);
+
+    expect(response.status).toBe(409);
+    expect(response.body).toEqual({ status: 'rejected', reasons: ['duplicate_event'] });
+  });
 });

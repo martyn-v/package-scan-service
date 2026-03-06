@@ -62,6 +62,14 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — Idempotency for Package Scan Events
+
+**Summary of prompt:** A given eventId must only be processed once. Duplicates must be rejected with `{"status": "rejected", "reasons": ["duplicate_event"]}`.
+
+**Summary of response:** Added `ProcessResult` type. Service now checks `repository.findById()` before saving — returns accepted or rejected. Route maps rejected to HTTP 409. Added unit tests (mocked repo returning existing event) and e2e test (send same event twice, second gets 409). TDD red-green followed.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)

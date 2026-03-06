@@ -16,12 +16,25 @@ describe('PackageScanService', () => {
     },
   };
 
-  it('should delegate to repository.save when processing an event', () => {
+  it('should save and return accepted for a new event', () => {
     const repository = mock<PackageScanRepository>();
+    repository.findById.mockReturnValue(undefined);
     const service = new PackageScanService(repository);
 
-    service.process(event);
+    const result = service.process(event);
 
     expect(repository.save).toHaveBeenCalledWith(event);
+    expect(result).toEqual({ status: 'accepted' });
+  });
+
+  it('should reject a duplicate event without saving', () => {
+    const repository = mock<PackageScanRepository>();
+    repository.findById.mockReturnValue(event);
+    const service = new PackageScanService(repository);
+
+    const result = service.process(event);
+
+    expect(repository.save).not.toHaveBeenCalled();
+    expect(result).toEqual({ status: 'rejected', reasons: ['duplicate_event'] });
   });
 });
