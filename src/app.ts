@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import packageScanRouter from './routes/package-scan';
 
 export function createApp(): Application {
   const app = express();
@@ -8,6 +9,8 @@ export function createApp(): Application {
   app.get('/health', (_req, res) => {
     res.json({ status: 'ok' });
   });
+
+  app.use('/events/package-scan', packageScanRouter);
 
   return app;
 }

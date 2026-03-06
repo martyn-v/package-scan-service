@@ -38,6 +38,14 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — POST /events/package-scan Endpoint
+
+**Summary of prompt:** Implement `POST /events/package-scan` that accepts a package scan event payload (eventId, source, timestamp, package with trackingId/dimensions/weight) and echoes it back. Provide a shell script `scripts/test_success.sh` that curls the endpoint with a randomly generated eventId. Add a Makefile with a `test_success` target.
+
+**Summary of response:** Created `PackageScanEvent` model types, route handler that echoes the request body, wired route into app. Followed TDD: wrote failing e2e test first (404), then implemented to green. Created `scripts/test_success.sh` with random eventId generation and `Makefile` with `test_success` target. Verified all tests and the manual script pass.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)
