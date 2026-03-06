@@ -118,6 +118,14 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — Add Request Access Logging
+
+**Summary of prompt:** The server is missing basic request logging. Choose a logging library (user to confirm). Proposed pino, morgan, and winston. User chose morgan for Apache/Nginx-style access logs.
+
+**Summary of response:** Installed morgan and @types/morgan. TDD: wrote failing e2e test asserting stdout contains `POST /events/package-scan` and `200` after a request. Wired `morgan('combined')` into `app.ts` as first middleware. Test passes. 31 tests green, lint and build clean.
+
+**Questions asked:** Proposed three libraries (pino, morgan, winston) — user selected morgan for classic access log format.
+
 ### 2026-03-06 — Review Findings Remediation
 
 **Summary of prompt:** Implement the recommended priority fixes from REVIEW.md and sign off on the review.
@@ -129,6 +137,21 @@ All interactions and architectural decisions for the package-scan-handler projec
 ---
 
 ## ADR (Architectural Decision Records)
+
+### ADR-003: Morgan for Request Logging
+
+**Status:** Accepted
+
+**Context:** The service had no request logging. Need Apache/Nginx-style access logs for observability.
+
+**Decision:** Morgan with `combined` format. Alternatives considered:
+- **pino** + **pino-http** — structured JSON logging, best for production log aggregation, but overkill for a demo service wanting classic access logs.
+- **winston** — general-purpose logger with transports, heavier config surface. Better suited as an application logger than a pure HTTP access logger.
+- **morgan** — single-purpose HTTP request logger. Outputs standard Apache `combined` format out of the box. Minimal config, lightweight, widely understood.
+
+Morgan was chosen because the requirement was specifically for Apache/Nginx-style access logs, not structured application logging.
+
+**Consequences:** Morgan middleware is mounted first in `app.ts`. Logs to stdout in `combined` format. No custom transports or log levels — just request access logs.
 
 ### ADR-002: Joi for Validation with Warnings
 

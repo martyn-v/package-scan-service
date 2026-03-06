@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import request from 'supertest';
 import { Application } from 'express';
 import { createApp } from '../../src/app';
@@ -20,6 +20,18 @@ describe('POST /events/package-scan', () => {
 
   beforeEach(() => {
     app = createApp();
+  });
+
+  it('should log requests in combined access log format', async () => {
+    const writeSpy = vi.spyOn(process.stdout, 'write').mockImplementation(() => true);
+
+    await request(app).post('/events/package-scan').send(validPayload);
+
+    const logOutput = writeSpy.mock.calls.map((c) => c[0]).join('');
+    writeSpy.mockRestore();
+
+    expect(logOutput).toContain('POST /events/package-scan');
+    expect(logOutput).toContain('200');
   });
 
   it('should accept the event and return accepted status', async () => {

@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import morgan from 'morgan';
 import { createPackageScanRouter } from './routes/package-scan';
 import { PackageScanService } from './services/package-scan-service';
 import { InMemoryPackageScanRepository } from './store/package-scan-repository';
@@ -10,6 +11,7 @@ import { InMemoryPackageScanRepository } from './store/package-scan-repository';
 export function createApp(): Application {
   const app = express();
 
+  app.use(morgan('combined'));
   app.use(express.json());
 
   app.get('/health', (_req, res) => {

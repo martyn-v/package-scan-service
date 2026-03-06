@@ -12,6 +12,7 @@ This service simulates a warehouse microservice that handles `package-scan` even
 - **Warnings** — flags absurd dimensions (e.g. < 5cm, height > 500cm) without rejecting.
 - **Idempotency** — duplicate `eventId` submissions are rejected.
 - **Normalization** — unknown fields are stripped; the cleaned payload is returned as `normalizedEvent`.
+- **Access logging** — Apache/Nginx-style request logs via morgan (`combined` format).
 
 ## Tech Stack
 
@@ -19,6 +20,7 @@ This service simulates a warehouse microservice that handles `package-scan` even
 - **Language:** TypeScript
 - **HTTP Framework:** Express 5
 - **Validation:** Joi
+- **Logging:** Morgan (combined access log format)
 - **Testing:** Vitest, supertest, vitest-mock-extended
 - **Package Manager:** Yarn 4 (PnP)
 - **Containerization:** Docker
