@@ -26,6 +26,12 @@ echo ""
 bash "${SCRIPT_DIR}/test_fail_missing_tracking_id.sh"
 echo ""
 
+bash "${SCRIPT_DIR}/test_warn_small_dimensions.sh"
+echo ""
+
+bash "${SCRIPT_DIR}/test_warn_absurd_height.sh"
+echo ""
+
 echo "=========================================="
 echo " All validation tests completed"
 echo "=========================================="

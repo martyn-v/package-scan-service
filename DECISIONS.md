@@ -86,6 +86,14 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** Clarified #1 ("a payload with dimensions should be rejected") — user confirmed negative dimensions or missing field.
 
+### 2026-03-06 — Dimension Warnings (Small and Absurd Height)
+
+**Summary of prompt:** Add warnings for absurd dimensions: 0 rejected as error, anything below 5 as warning, height > 500 as warning.
+
+**Summary of response:** 0 and negative already rejected by `positive()`. Created `checkDimensionWarnings()` in `src/validation/package-scan-warnings.ts` — warns for any dimension < 5 or height > 500. Integrated into validator (runs after Joi passes). Removed Joi `helpers.warning()` approach (not available in `.custom()` in Joi 18). Added unit tests for warnings function, validator warning tests, and e2e test for `accepted_with_warnings`. Added `test_warn_small_dimensions.sh` and `test_warn_absurd_height.sh` scripts + make targets. All 28 tests pass.
+
+**Questions asked:** None — user clarified mid-implementation that 0 should be rejected and < 5 should warn.
+
 ---
 
 ## ADR (Architectural Decision Records)

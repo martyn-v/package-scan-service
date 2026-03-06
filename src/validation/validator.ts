@@ -1,5 +1,7 @@
 import Joi from 'joi';
+import { PackageScanEvent } from '../models/package-scan';
 import { ProcessResult } from '../models/process-result';
+import { checkDimensionWarnings } from './package-scan-warnings';
 
 /** Validation outcome containing errors and warnings. */
 export interface ValidationOutcome {
@@ -9,19 +11,16 @@ export interface ValidationOutcome {
 }
 
 /**
- * Validates a payload against a Joi schema, separating errors from warnings.
+ * Validates a package scan payload against the Joi schema and checks for warnings.
  * @param schema - The Joi schema to validate against.
  * @param payload - The data to validate.
  * @returns The validation outcome with errors and warnings.
  */
 export async function validate(schema: Joi.ObjectSchema, payload: unknown): Promise<ValidationOutcome> {
   try {
-    const { warning } = await schema.validateAsync(payload, {
-      abortEarly: false,
-      warnings: true,
-    } as Joi.AsyncValidationOptions & { warnings: boolean });
+    await schema.validateAsync(payload, { abortEarly: false });
 
-    const warnings = warning?.details.map((d: Joi.ValidationErrorItem) => d.message) ?? [];
+    const warnings = checkDimensionWarnings(payload as PackageScanEvent);
 
     return { valid: true, errors: [], warnings };
   } catch (err) {

@@ -42,6 +42,23 @@ describe('POST /events/package-scan', () => {
     expect(response.body).toEqual({ status: 'rejected', reasons: ['duplicate_event'] });
   });
 
+  it('should accept with warnings for absurd dimensions', async () => {
+    const response = await request(app)
+      .post('/events/package-scan')
+      .send({
+        ...validPayload,
+        eventId: 'evt_absurd_dims',
+        package: {
+          ...validPayload.package,
+          dimensions: { length: 2, width: 80, height: 600, unit: 'cm' },
+        },
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.status).toBe('accepted_with_warnings');
+    expect(response.body.warnings.length).toBeGreaterThan(0);
+  });
+
   it('should reject an invalid payload with validation errors', async () => {
     const response = await request(app)
       .post('/events/package-scan')

@@ -78,6 +78,47 @@ describe('validate', () => {
     expect(result.errors.some((e) => e.includes('timestamp'))).toBe(true);
   });
 
+  it('should reject zero dimensions', async () => {
+    const result = await validate(packageScanSchema, {
+      ...validPayload,
+      package: {
+        ...validPayload.package,
+        dimensions: { length: 0, width: 0, height: 0, unit: 'cm' },
+      },
+    });
+
+    expect(result.valid).toBe(false);
+    expect(result.errors.length).toBeGreaterThan(0);
+  });
+
+  it('should warn for dimensions below 5', async () => {
+    const result = await validate(packageScanSchema, {
+      ...validPayload,
+      package: {
+        ...validPayload.package,
+        dimensions: { length: 2, width: 3, height: 1, unit: 'cm' },
+      },
+    });
+
+    expect(result.valid).toBe(true);
+    expect(result.warnings.some((w) => w.includes('length'))).toBe(true);
+    expect(result.warnings.some((w) => w.includes('width'))).toBe(true);
+    expect(result.warnings.some((w) => w.includes('height'))).toBe(true);
+  });
+
+  it('should warn for height greater than 500', async () => {
+    const result = await validate(packageScanSchema, {
+      ...validPayload,
+      package: {
+        ...validPayload.package,
+        dimensions: { ...validPayload.package.dimensions, height: 600 },
+      },
+    });
+
+    expect(result.valid).toBe(true);
+    expect(result.warnings.some((w) => w.includes('height'))).toBe(true);
+  });
+
   it('should reject a missing trackingId', async () => {
     const { trackingId: _tid, ...packageWithoutTrackingId } = validPayload.package;
     const result = await validate(packageScanSchema, {

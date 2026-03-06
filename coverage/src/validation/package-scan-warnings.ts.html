@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/validation/package-scan-schema.ts</title>
+    <title>Code coverage report for src/validation/package-scan-warnings.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/validation</a> package-scan-schema.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/validation</a> package-scan-warnings.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -84,20 +84,18 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -105,27 +103,53 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Joi from 'joi';
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { PackageScanEvent } from '../models/package-scan';
 &nbsp;
-/** Joi schema for validating package scan event payloads. */
-export const packageScanSchema = Joi.object({
-  eventId: Joi.string().required(),
-  source: Joi.string().required(),
-  timestamp: Joi.date().iso().max('now').required(),
-  package: Joi.object({
-    trackingId: Joi.string().required(),
-    dimensions: Joi.object({
-      length: Joi.number().positive().required(),
-      width: Joi.number().positive().required(),
-      height: Joi.number().positive().required(),
-      unit: Joi.string().required(),
-    }).required(),
-    weight: Joi.object({
-      value: Joi.number().positive().required(),
-      unit: Joi.string().required(),
-    }).required(),
-  }).required(),
-});
+const MIN_DIMENSION = 5;
+const MAX_HEIGHT = 500;
+&nbsp;
+/**
+ * Checks a valid package scan event for absurd dimension values.
+ * @param event - The validated event to check for warnings.
+ * @returns An array of warning messages.
+ */
+export function checkDimensionWarnings(event: PackageScanEvent): string[] {
+  const warnings: string[] = [];
+  const { length, width, height } = event.package.dimensions;
+&nbsp;
+  if (length &lt; MIN_DIMENSION) {
+    warnings.push(`"package.dimensions.length" value ${length} is suspiciously small (&lt; ${MIN_DIMENSION})`);
+  }
+  if (width &lt; MIN_DIMENSION) {
+    warnings.push(`"package.dimensions.width" value ${width} is suspiciously small (&lt; ${MIN_DIMENSION})`);
+  }
+  if (height &lt; MIN_DIMENSION) {
+    warnings.push(`"package.dimensions.height" value ${height} is suspiciously small (&lt; ${MIN_DIMENSION})`);
+  }
+  if (height &gt; MAX_HEIGHT) {
+    warnings.push(`"package.dimensions.height" value ${height} exceeds ${MAX_HEIGHT}`);
+  }
+&nbsp;
+  return warnings;
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
