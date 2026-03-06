@@ -1,10 +1,11 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import request from 'supertest';
+import { Application } from 'express';
 import { createApp } from '../../src/app';
 import { PackageScanEvent } from '../../src/models/package-scan';
 
 describe('POST /events/package-scan', () => {
-  const app = createApp();
+  let app: Application;
 
   const validPayload: PackageScanEvent = {
     eventId: 'evt_test_001',
@@ -17,6 +18,10 @@ describe('POST /events/package-scan', () => {
     },
   };
 
+  beforeEach(() => {
+    app = createApp();
+  });
+
   it('should accept the event and return accepted status', async () => {
     const response = await request(app)
       .post('/events/package-scan')
@@ -24,8 +29,8 @@ describe('POST /events/package-scan', () => {
 
     expect(response.status).toBe(200);
     expect(response.body.status).toBe('accepted');
-    expect(response.body.data).toBeDefined();
-    expect(response.body.data.eventId).toBe(validPayload.eventId);
+    expect(response.body.normalizedEvent).toBeDefined();
+    expect(response.body.normalizedEvent.eventId).toBe(validPayload.eventId);
   });
 
   it('should return normalized payload without extra fields', async () => {
@@ -38,9 +43,9 @@ describe('POST /events/package-scan', () => {
       });
 
     expect(response.status).toBe(200);
-    expect(response.body.data).toBeDefined();
-    expect(response.body.data.extraField).toBeUndefined();
-    expect(response.body.data.eventId).toBe('evt_strip_test');
+    expect(response.body.normalizedEvent).toBeDefined();
+    expect(response.body.normalizedEvent.extraField).toBeUndefined();
+    expect(response.body.normalizedEvent.eventId).toBe('evt_strip_test');
   });
 
   it('should reject a duplicate event', async () => {
@@ -73,9 +78,9 @@ describe('POST /events/package-scan', () => {
 
     expect(response.status).toBe(200);
     expect(response.body.status).toBe('accepted_with_warnings');
-    expect(response.body.warnings.length).toBeGreaterThan(0);
-    expect(response.body.data).toBeDefined();
-    expect(response.body.data.eventId).toBe('evt_absurd_dims');
+    expect(response.body.reasons.length).toBeGreaterThan(0);
+    expect(response.body.normalizedEvent).toBeDefined();
+    expect(response.body.normalizedEvent.eventId).toBe('evt_absurd_dims');
   });
 
   it('should reject an invalid payload with validation errors', async () => {

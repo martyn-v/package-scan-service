@@ -47,7 +47,7 @@ export function toProcessResult(outcome: ValidationOutcome): ProcessResult | nul
   }
 
   if (outcome.warnings.length > 0) {
-    return { status: 'accepted_with_warnings', warnings: outcome.warnings };
+    return { status: 'accepted_with_warnings', reasons: outcome.warnings };
   }
 
   return null;

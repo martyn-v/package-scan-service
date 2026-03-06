@@ -38,6 +38,7 @@ src/
   services/           # Business logic
   models/             # TypeScript types/interfaces for events
   store/              # In-memory persistence layer (injectable/mockable)
+  validation/         # Joi schemas, validator logic, and warning checks
 ```
 
 - **Routes** are thin controllers that validate input and delegate to **services**.

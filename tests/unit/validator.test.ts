@@ -161,6 +161,6 @@ describe('toProcessResult', () => {
   it('should return accepted_with_warnings for warnings only', () => {
     const result = toProcessResult({ valid: true, errors: [], warnings: ['some_warning'] });
 
-    expect(result).toEqual({ status: 'accepted_with_warnings', warnings: ['some_warning'] });
+    expect(result).toEqual({ status: 'accepted_with_warnings', reasons: ['some_warning'] });
   });
 });

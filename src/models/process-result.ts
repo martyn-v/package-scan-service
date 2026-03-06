@@ -4,6 +4,5 @@ import { PackageScanEvent } from './package-scan';
 export interface ProcessResult {
   status: 'accepted' | 'accepted_with_warnings' | 'rejected';
   reasons?: string[];
-  warnings?: string[];
-  data?: PackageScanEvent;
+  normalizedEvent?: PackageScanEvent;
 }

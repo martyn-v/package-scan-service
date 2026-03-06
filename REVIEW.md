@@ -200,9 +200,19 @@ Spec defines this response contract:
 
 ### Recommended Priority Actions
 
-1. **F1 — Rename `data` to `normalizedEvent`** to match the functional specification's API contract.
-2. **F2 — Unify `warnings` into `reasons`** so all statuses use a single `reasons` array, matching the spec's response shape.
-3. **A2/C1 — Create `Dockerfile`** or remove Docker references from documentation.
-4. **T1 — Isolate e2e test state** by creating a fresh app instance per test.
-5. **A1/D3 — Update CLAUDE.md architecture** to include `validation/` directory.
-6. **D1 — Update ADR-002** to accurately describe the warning implementation approach.
+1. ~~**F1 — Rename `data` to `normalizedEvent`**~~ — **RESOLVED.** Renamed in `ProcessResult`, service, and all tests.
+2. ~~**F2 — Unify `warnings` into `reasons`**~~ — **RESOLVED.** Removed `warnings` field from `ProcessResult`. All statuses now use a single `reasons` array.
+3. ~~**A2/C1 — Create `Dockerfile`**~~ — **RESOLVED.** Multi-stage Dockerfile added.
+4. ~~**T1 — Isolate e2e test state**~~ — **RESOLVED.** E2e tests now create a fresh app via `beforeEach`.
+5. ~~**A1/D3 — Update CLAUDE.md architecture**~~ — **RESOLVED.** `validation/` directory added to architecture diagram.
+6. ~~**D1 — Update ADR-002**~~ — **RESOLVED.** ADR amended to reflect post-validation warning approach.
+
+---
+
+## 10. Sign-off
+
+All recommended priority actions have been addressed. Remaining low/info findings are acceptable for the current scope of this demo service.
+
+**Signed off by:** Original Developer
+**Date:** 2026-03-06
+**Status:** All priority findings resolved. Review complete.

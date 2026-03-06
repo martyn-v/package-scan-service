@@ -34,9 +34,9 @@ export class PackageScanService {
     this.repository.save(normalized);
 
     if (validationResult?.status === 'accepted_with_warnings') {
-      return { ...validationResult, data: normalized };
+      return { ...validationResult, normalizedEvent: normalized };
     }
 
-    return { status: 'accepted', data: normalized };
+    return { status: 'accepted', normalizedEvent: normalized };
   }
 }

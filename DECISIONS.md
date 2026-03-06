@@ -118,19 +118,27 @@ All interactions and architectural decisions for the package-scan-handler projec
 
 **Questions asked:** None.
 
+### 2026-03-06 — Review Findings Remediation
+
+**Summary of prompt:** Implement the recommended priority fixes from REVIEW.md and sign off on the review.
+
+**Summary of response:** Fixed all 6 priority findings: (F1) renamed `data` to `normalizedEvent` in `ProcessResult`, service, and all tests; (F2) unified `warnings` field into `reasons` — all statuses now use a single `reasons` array matching the spec; (A2/C1) created multi-stage `Dockerfile`; (T1) isolated e2e test state with `beforeEach` creating a fresh app per test; (A1/D3) added `validation/` to CLAUDE.md architecture diagram; (D1) amended ADR-002 to reflect the actual post-validation warning implementation. All 30 tests pass, lint and build clean. Signed off on REVIEW.md.
+
+**Questions asked:** None.
+
 ---
 
 ## ADR (Architectural Decision Records)
 
 ### ADR-002: Joi for Validation with Warnings
 
-**Status:** Accepted
+**Status:** Accepted (amended)
 
 **Context:** Need a validation library that distinguishes errors from warnings.
 
-**Decision:** Joi — native `warning` support via `validateAsync()` with `{ warnings: true }`. Zod, Yup, and class-validator lack native warning concepts.
+**Decision:** Joi — chosen for its expressive schema API and async validation via `validateAsync()`. Initially selected for native `warnings` support, but `helpers.warning()` is not available inside `.custom()` in Joi 18. Warnings are instead implemented as a separate post-validation function (`checkDimensionWarnings` in `src/validation/package-scan-warnings.ts`) that runs after Joi validation passes.
 
-**Consequences:** Validation is async (`validateAsync` required for warnings in Joi 18). Schema defined in `src/validation/package-scan-schema.ts`, validator logic in `src/validation/validator.ts`.
+**Consequences:** Validation is async (`validateAsync` with `stripUnknown: true`). Schema defined in `src/validation/package-scan-schema.ts`, validator logic in `src/validation/validator.ts`, warning checks in `src/validation/package-scan-warnings.ts`.
 
 ### ADR-001: ESLint Configuration
 
