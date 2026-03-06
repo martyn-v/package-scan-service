@@ -56,6 +56,7 @@ src/
 - **Test coverage:** Generate HTML coverage report and JUnit XML output on every test run.
 - **Clean code:** Small functions, clear naming, single responsibility. Favor composition over inheritance.
 - **JSDoc:** All functions, interfaces, and classes must have appropriate JSDoc comments.
+- **Conventional Commits:** All commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification (e.g. `feat:`, `fix:`, `test:`, `docs:`, `chore:`, `refactor:`).
 
 ## Pre-Push Checklist
 

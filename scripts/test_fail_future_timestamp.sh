@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BASE_URL="${BASE_URL:-http://localhost:3000}"
+EVENT_ID="evt_$(head -c 16 /dev/urandom | xxd -p | head -c 12)"
+
+echo "=== Future timestamp (should be rejected) ==="
+curl -s -X POST "${BASE_URL}/events/package-scan" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "eventId": "'"${EVENT_ID}"'",
+    "source": "edge-camera",
+    "timestamp": "2099-01-01T00:00:00Z",
+    "package": {
+      "trackingId": "PKG-001",
+      "dimensions": {
+        "length": 120,
+        "width": 80,
+        "height": 60,
+        "unit": "cm"
+      },
+      "weight": {
+        "value": 25,
+        "unit": "kg"
+      }
+    }
+  }' | jq .
